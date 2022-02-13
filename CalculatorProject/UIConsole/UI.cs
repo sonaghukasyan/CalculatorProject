@@ -2,12 +2,16 @@
 using CalculatorProject.TheCalculator;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CalculatorProject.UIConsole
 {
+    
     class UI
     {
         private Calculator Calculator { get; set; }
+        private double Num1;
+        private double Num2;
 
         public UI()
         {
@@ -22,7 +26,10 @@ namespace CalculatorProject.UIConsole
             switch (key)
             {
                 case ConsoleKey.C:
-                    Calculate();
+                    Console.WriteLine("First number: ");
+                    Num1 = int.Parse(Console.ReadLine());
+
+                    Calculate(Num1);
                     Start();
                     break;
                 case ConsoleKey.H:
@@ -33,13 +40,11 @@ namespace CalculatorProject.UIConsole
             }
         }
 
-        public void Calculate()
+        public void Calculate(double num1)
         {
-            Console.WriteLine("First number: ");
-            double num1 = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Second number: ");
-            double num2 = double.Parse(Console.ReadLine());
+            Num2 = double.Parse(Console.ReadLine());
 
             Console.WriteLine("Click on operation (+,-,*,/): ");
             ConsoleKey key = Console.ReadKey().Key;
@@ -73,9 +78,9 @@ namespace CalculatorProject.UIConsole
             Console.WriteLine();
 
             this.Calculator.SetOperation(op);
-            double answer = Calculator.Operate(num1, num2);
-            Console.WriteLine(Calculator.Operate(num1, num2));
-            Calculator.UpdateHistory(num1 + opSign + num2 + " = ", answer);
+            double answer = Calculator.Operate(Num1, Num2);
+            Console.WriteLine(Calculator.Operate(Num1, Num2));
+            Calculator.UpdateHistory(Num1 + opSign + Num2 + " = ", answer);
         }
 
         public void History()
@@ -84,6 +89,18 @@ namespace CalculatorProject.UIConsole
              {
                     Console.WriteLine(entry.Key + entry.Value);
              }
+            Console.WriteLine("Write the line to get answer of a calculation from history or write 0 to go back");
+            int lineIndex = int.Parse(Console.ReadLine());
+            if(lineIndex == 0)
+            {
+                Console.Clear();
+                Start();
+            }
+            else
+            {
+                Num1 = Calculator.History.ElementAt(lineIndex).Value;
+                Calculate(Num1);
+            }
         }
     }
 }
