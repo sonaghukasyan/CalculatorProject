@@ -10,7 +10,7 @@ namespace CalculatorProject.TheCalculator
     class Calculator
     {
         protected  IOperation _operation;
-        public List<string> Memory { get; set; }
+        public List<double> Memory { get; set; }
         public Dictionary<string,double> History;
         private int _historySize;
 
@@ -18,7 +18,7 @@ namespace CalculatorProject.TheCalculator
         {
             this._historySize = 100;
             this.History = new Dictionary<string, double>();
-            this.Memory = new List<string>();
+            this.Memory = new List<double>();
         } 
         public Calculator(IOperation operation)
         {

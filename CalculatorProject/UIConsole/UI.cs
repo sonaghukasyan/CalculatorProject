@@ -26,18 +26,35 @@ namespace CalculatorProject.UIConsole
             switch (key)
             {
                 case ConsoleKey.C:
-                    Console.WriteLine("First number: ");
-                    Num1 = int.Parse(Console.ReadLine());
-
-                    Calculate(Num1);
+                    Calculate();
                     Start();
                     break;
                 case ConsoleKey.H:
                     History();
                     Start();
                     break;
-
+                case ConsoleKey.M:
+                    Console.Clear();
+                    Memory();
+                    break;
             }
+        }
+
+        public void Memory()
+        {
+            foreach(double num in Calculator.Memory)
+            {
+                Console.WriteLine(num);
+            }
+            Start();
+        }
+
+        public void Calculate()
+        {
+            Console.WriteLine("First number: ");
+            Num1 = int.Parse(Console.ReadLine());
+
+            Calculate(Num1);
         }
 
         public void Calculate(double num1)
@@ -80,7 +97,27 @@ namespace CalculatorProject.UIConsole
             this.Calculator.SetOperation(op);
             double answer = Calculator.Operate(Num1, Num2);
             Console.WriteLine(Calculator.Operate(Num1, Num2));
+
             Calculator.UpdateHistory(Num1 + opSign + Num2 + " = ", answer);
+            ToMemorise(answer);
+            Start();
+        }
+
+        public void ToMemorise(double answer)
+        {
+            Console.WriteLine("M.Memorise answer    C.Continue");
+            ConsoleKey key = Console.ReadKey().Key;
+            Console.Clear();
+
+            switch (key)
+            {
+                case ConsoleKey.M:
+                    Calculator.Memory.Add(answer);
+                    break;
+                case ConsoleKey.C:
+                    Start();
+                    break;
+            }
         }
 
         public void History()
@@ -89,6 +126,7 @@ namespace CalculatorProject.UIConsole
              {
                     Console.WriteLine(entry.Key + entry.Value);
              }
+
             Console.WriteLine("Write the line to get answer of a calculation from history or write 0 to go back");
             int lineIndex = int.Parse(Console.ReadLine());
             if(lineIndex == 0)
