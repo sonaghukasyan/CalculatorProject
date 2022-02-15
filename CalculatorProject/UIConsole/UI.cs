@@ -1,8 +1,10 @@
-﻿using CalculatorProject.Operations;
+﻿
 using CalculatorProject.TheCalculator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OperationsLib;
+
 
 namespace CalculatorProject.UIConsole
 {
@@ -10,12 +12,14 @@ namespace CalculatorProject.UIConsole
     class UI
     {
         private Calculator Calculator { get; set; }
+        private ICalculatorCreator CalculatorCreator { get; set; }
         private double Num1;
         private double Num2;
 
         public UI()
         {
-            this.Calculator = new Calculator();
+            CalculatorCreator = new CalculatorCreator();
+            this.Calculator = CalculatorCreator.CreateCalculator();
         }
         public void Start()
         {
@@ -66,25 +70,30 @@ namespace CalculatorProject.UIConsole
             Console.WriteLine("Click on operation (+,-,*,/): ");
             ConsoleKey key = Console.ReadKey().Key;
             IOperation op = new SumOperation();
-            string opSign = "";
+            OpSign opSign = OpSign.Plus;
+            string sign = "";
 
             switch (key)
             {
                 case ConsoleKey.Add:
                     op = new SumOperation();
-                    opSign = " + ";
+                    opSign = OpSign.Plus;
+                    sign = "+";
                     break;
                 case ConsoleKey.Divide:
                     op = new DivideOperation();
-                    opSign = " / ";
+                    opSign = OpSign.Divide;
+                    sign = "/";
                     break;
                 case ConsoleKey.Multiply:
                     op = new MultiplyOperation();
-                    opSign = " * ";
+                    opSign = OpSign.Multiply;
+                    sign = "*";
                     break;
                 case ConsoleKey.Subtract:
                     op = new SubstractOperation();
-                    opSign = " - ";
+                    opSign = OpSign.Minus;
+                    sign = "-";
                     break;
                 default:
                     Console.WriteLine("Invalid operator;");
@@ -93,12 +102,22 @@ namespace CalculatorProject.UIConsole
                     break;
             }
             Console.WriteLine();
+            double answer;
+            try
+            {
+                answer = Calculator.Operate(opSign, Num1, Num2);
+                Console.WriteLine(answer);
+            }
+            catch(Exception ex)
+            {
+                answer = 0;
+                Console.WriteLine(ex.Message);
+                Console.Clear();
+                Start();
+            }
 
-            this.Calculator.SetOperation(op);
-            double answer = Calculator.Operate(Num1, Num2);
-            Console.WriteLine(Calculator.Operate(Num1, Num2));
 
-            Calculator.UpdateHistory(Num1 + opSign + Num2 + " = ", answer);
+            Calculator.UpdateHistory(Num1 + sign + Num2 + " = ", answer);
             ToMemorise(answer);
             Start();
         }

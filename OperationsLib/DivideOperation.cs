@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CalculatorProject.Operations
+﻿namespace OperationsLib
 {
     class DivideOperation : IOperation
     {
+
+        public OpSign OpSign { get { return (OpSign)1; } set { } }
+
         public int Operate(int firstParam, int secondParam)
         {
-            if(firstParam % secondParam != 0)
+            if (firstParam % secondParam != 0)
             {
                 Operate((double)(firstParam), (double)(firstParam));
             }

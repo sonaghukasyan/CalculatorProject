@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorProject.HistoryFile
+namespace OperationsLib
 {
-    class History
+    public enum OpSign
     {
+        Plus,
+        Minus,
+        Divide,
+        Multiply
     }
 }

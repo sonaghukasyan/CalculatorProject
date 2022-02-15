@@ -8,6 +8,7 @@ namespace CalculatorProject.Operations
 {
     public interface IOperation
     {
+        OpSign OpSign { get; set; }
         int Operate(int firstParam, int secondParam);
         double Operate(double firstParam, double secondParam);
 

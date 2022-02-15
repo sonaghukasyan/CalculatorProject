@@ -1,43 +1,38 @@
-﻿using CalculatorProject.Operations;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CalculatorProject.TheCalculator
 {
+    //IEnumarable sarqi
     class Calculator
     {
-        protected  IOperation _operation;
-        public List<double> Memory { get; set; }
-        public Dictionary<string,double> History;
-        private int _historySize;
+        private  readonly List<IOperation> _operations;
+        public static List<double> Memory;
+        public static Dictionary<string,double> History;
+        private static int _historySize;
 
-        public Calculator()
+        static Calculator()
         {
-            this._historySize = 100;
-            this.History = new Dictionary<string, double>();
-            this.Memory = new List<double>();
+            _historySize = 100;
+            History = new Dictionary<string, double>();
+            Memory = new List<double>();
         } 
-        public Calculator(IOperation operation)
+        public Calculator(List<IOperation> operations)
         {
-            this._operation = operation;
+            this._operations = operations;
         }
 
-        public void SetOperation(IOperation operation)
+        //Linqov poxi
+        public double Operate(OpSign opsign, double num1, double num2)
         {
-            this._operation = operation;
-        }
-
-        public int Operate(int num1, int num2)
-        {
-            return this._operation.Operate(num1, num2);
-        }
-
-        public double Operate(double num1, double num2)
-        {
-           return this._operation.Operate(num1, num2);
+            for(int i = 0; i < _operations.Count; i++)
+            {
+                if(opsign == _operations[i].OpSign)
+                {
+                    return _operations[i].Operate(num1, num2);
+                }
+            }
+            throw new Exception("Unrecognizable operation");
         }
 
         public void UpdateHistory(string operation, double answer)
@@ -47,7 +42,7 @@ namespace CalculatorProject.TheCalculator
                 History = new Dictionary<string, double>();
             }
 
-            this.History.Add(operation, answer);
+            History.Add(operation, answer);
         }
     }
 }
