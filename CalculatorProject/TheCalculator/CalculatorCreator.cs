@@ -1,4 +1,4 @@
-﻿using CalculatorProject.Operations;
+﻿using Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,7 @@ namespace CalculatorProject.TheCalculator
         public List<IOperation> GetOperations()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
+            Console.WriteLine(assembly.GetType().Name);
             var ops = assembly.GetTypes().Where(op => op.IsClass && typeof(IOperation).IsAssignableFrom(op));
             
    

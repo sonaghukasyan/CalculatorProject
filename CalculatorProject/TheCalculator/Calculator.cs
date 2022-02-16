@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Library;
 namespace CalculatorProject.TheCalculator
 {
     //IEnumarable sarqi

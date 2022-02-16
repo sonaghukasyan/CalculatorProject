@@ -1,6 +1,12 @@
-﻿namespace OperationsLib
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Library
 {
-    class DivideOperation : IOperation
+    public class DivideOperation : IOperation
     {
 
         public OpSign OpSign { get { return (OpSign)1; } set { } }

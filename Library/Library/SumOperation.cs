@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OperationsLib
+namespace Library
 {
-    class SumOperation : IOperation
+    public class SumOperation : IOperation
     {
-        
+
         public OpSign OpSign { get { return (OpSign)0; } set { } }
 
         public int Operate(int firstParam, int secondParam)

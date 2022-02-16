@@ -1,9 +1,8 @@
-﻿
+﻿using Library;
 using CalculatorProject.TheCalculator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using OperationsLib;
 
 
 namespace CalculatorProject.UIConsole
