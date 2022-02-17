@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace CalculatorProject.TheCalculator
 {
-    internal interface ICalculatorCreator
+     interface ICalculatorCreator
     {
-        List<IOperation> GetOperations();
+        IEnumerable<IOperation> GetOperations();
         Calculator CreateCalculator();
     }
 }

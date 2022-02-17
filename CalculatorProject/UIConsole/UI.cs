@@ -68,29 +68,24 @@ namespace CalculatorProject.UIConsole
 
             Console.WriteLine("Click on operation (+,-,*,/): ");
             ConsoleKey key = Console.ReadKey().Key;
-            IOperation op = new SumOperation();
             OpSign opSign = OpSign.Plus;
             string sign = "";
 
             switch (key)
             {
                 case ConsoleKey.Add:
-                    op = new SumOperation();
                     opSign = OpSign.Plus;
                     sign = "+";
                     break;
                 case ConsoleKey.Divide:
-                    op = new DivideOperation();
                     opSign = OpSign.Divide;
                     sign = "/";
                     break;
                 case ConsoleKey.Multiply:
-                    op = new MultiplyOperation();
                     opSign = OpSign.Multiply;
                     sign = "*";
                     break;
                 case ConsoleKey.Subtract:
-                    op = new SubstractOperation();
                     opSign = OpSign.Minus;
                     sign = "-";
                     break;

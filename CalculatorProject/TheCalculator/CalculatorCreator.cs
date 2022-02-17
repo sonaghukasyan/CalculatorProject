@@ -1,5 +1,6 @@
 ﻿using Library;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,14 +19,17 @@ namespace CalculatorProject.TheCalculator
             return new Calculator(_defaultOperations);
         }
 
-        public List<IOperation> GetOperations()
+        public IEnumerable<IOperation> GetOperations()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Console.WriteLine(assembly.GetType().Name);
-            var ops = assembly.GetTypes().Where(op => op.IsClass && typeof(IOperation).IsAssignableFrom(op));
             
-   
-            return (List<IOperation>)ops;
+            Assembly assembly = Assembly.Load("Library");
+            var types = assembly.GetTypes();
+            int count = (from t in types where t.IsClass select t).Count();
+
+            var operations = from t in types where t.IsClass && typeof(IOperation).IsAssignableFrom(t) select t;
+
+
+            return operations.OfType<IOperation>();
         }
 
     }
